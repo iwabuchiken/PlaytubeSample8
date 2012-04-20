@@ -2,7 +2,7 @@ package play.youtube;
 
 import java.util.List;
 
-import android.app.Activity;
+//import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+//import android.widget.Toast;
 
 public class PlaytubeSample8Activity extends ListActivity {
 
@@ -47,12 +49,16 @@ public class PlaytubeSample8Activity extends ListActivity {
             EditText etKeyword = (EditText) findViewById(R.id.et_keyword);
 
             // 検索結果を取得
-            List<YouTubeVideoItem8> items;// =
-//                YouTubeDataUtil8.getInstance().getSearchResult(
-//                    etKeyword.getText().toString());
-//
-//            // 検索結果を表示
-//            setSearchResult(items);
+            List<YouTubeVideoItem8> items =
+                YouTubeDataUtil8.getInstance().getSearchResult(
+                    etKeyword.getText().toString());
+            
+            // toast
+//			Toast.makeText(PlaytubeSample8Activity.this, String.valueOf(items.size()), Toast.LENGTH_SHORT).show();
+			
+
+            // 検索結果を表示
+            setSearchResult(items);
         }//public void onClick(View v)
     };//private OnClickListener searchBtnOnClickListener = new OnClickListener()
 
@@ -71,5 +77,58 @@ public class PlaytubeSample8Activity extends ListActivity {
         ImageButton ibtnSearch = (ImageButton) findViewById(R.id.ibtn_search);
         ibtnSearch.setOnClickListener(searchBtnOnClickListener);
 
+        // 前ページ( < )ボタンにリスナー設定
+        ImageButton ibtnPrev = (ImageButton) findViewById(R.id.ibtn_prev);
+        ibtnPrev.setOnClickListener(prevBtnOnClickListener);
+
+        // 次ページ( > )ボタンにリスナー設定
+        ImageButton ibtnNext = (ImageButton) findViewById(R.id.ibtn_next);
+        ibtnNext.setOnClickListener(nextBtnOnClickListener);
+
     }//public void onCreate(Bundle savedInstanceState)
+    
+    // setSearchResultメソッド（検索結果のリスト設定処理)
+    private void setSearchResult(List<YouTubeVideoItem8> items) {
+
+        // アダプタクラスのインスタンス生成
+        ListAdapter adapter =
+            new VideoListAdapter8(this, R.layout.playtube_main8, items);
+
+        // アダプタ設定
+        setListAdapter(adapter);
+
+        // 動画リストへフォーカス
+        getListView().requestFocus();
+    }//private void setSearchResult(List<YouTubeVideoItem8> items)
+
+    // 前ページ( < )ボタンボタンクリックリスナー定義
+    private OnClickListener prevBtnOnClickListener = new OnClickListener() {
+        // onClickメソッド(ボタンクリック時イベント)
+        @Override
+        public void onClick(View v) {
+
+            // 検索結果の前のページを取得
+            List<YouTubeVideoItem8> items =
+                YouTubeDataUtil8.getInstance().getPrevPage();
+
+            // 検索結果を表示
+            setSearchResult(items);
+        }
+    };//private OnClickListener prevBtnOnClickListener = new OnClickListener()
+
+    // 次ページ( > )ボタンボタンクリックリスナー定義
+    private OnClickListener nextBtnOnClickListener = new OnClickListener() {
+        // onClickメソッド(ボタンクリック時イベント)
+        @Override
+        public void onClick(View v) {
+
+            // 検索結果の次のページを取得
+            List<YouTubeVideoItem8> items =
+                YouTubeDataUtil8.getInstance().getNextPage();
+
+            // 検索結果を表示
+            setSearchResult(items);
+        }
+    };//private OnClickListener nextBtnOnClickListener = new OnClickListener()
+
 }

@@ -23,10 +23,13 @@ public final class R {
         public static final int ibtn_next=0x7f050003;
         public static final int ibtn_prev=0x7f050002;
         public static final int ibtn_search=0x7f050001;
+        public static final int iv_thumbnail=0x7f050004;
+        public static final int tv_video_title=0x7f050005;
     }
     public static final class layout {
         public static final int main=0x7f030000;
         public static final int playtube_main8=0x7f030001;
+        public static final int video_list_row8=0x7f030002;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
