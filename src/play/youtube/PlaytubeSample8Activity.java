@@ -31,7 +31,7 @@ public class PlaytubeSample8Activity extends ListActivity {
     private OnFocusChangeListener keywordInputOnFocusChangeListener =
         new OnFocusChangeListener() {
             // onFocusChangeメソッド(フォーカス変更時イベント)
-            @Override
+//            @Override
             public void onFocusChange(View v, boolean isFocused) {
                 // 前ページ( < )ボタンと次ページ( > )ボタンオブジェクト取得
                 ImageButton ibtnPrev =
